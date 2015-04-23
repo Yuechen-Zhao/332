@@ -1,0 +1,38 @@
+I inserted a series of decrementing numbers to the tree 20, 19, 18, ..., 2, 1, 0. The tree
+looks like a list initially. Then I called lookup 20, and found the farthest node, which is
+18. Then I called lookup 18. So on and so forth I called lookup 16, 14, and 10. These are
+all the farthest node resulting from the previous lookup call. So these calls have approximately
+a run time of n.
+
+After these expensive operations, the tree becomes more and more balanced. The length of
+the longest path decreases after each expensive lookup.
+
+It is possible to turn a relatively (not completely) balanced tree back to a completely
+unbalanced tree. After inserting 20, 19, 18, ..., 1 and looking up 20, 19, 18, 17, 16,
+the tree becomes relatively balance. When I continue calling lookup 15, 14, ..., 2, 1,
+the tree turns out to be completely unbalanced again. However, if a tree is completely
+balanced, which means that every single node is balanced, I would argue it is not to
+turn it back to completely unbalanced.
+
+To calculate the constant factor c in the relation T <= cmlog2(n), I did the following
+experiments:
+
+1. Insert 2^12 to 1 to the tree decrementing by 1 each time, then look up 2^12 to 2^11
+   decrementing by 2 each time.
+   Result: T = 12818; m = 5120; n = 4096.
+   
+2. Same as the previous one, but insert 2^11 to 1, and then look up 2^11 to 2^10.
+   Result: T = 6398; m = 2560; n = 2048.
+   
+3. Insert 2^10 to 1, and then look up 2^10 to 2^9.
+   Result: T = 3197; m = 1280; n = 1024.
+   
+4. Insert 2^9 to 1, and then look up 2^9 to 2^8.
+   Result: T = 1593; m = 640; n = 512.
+
+5. Insert 2^8 to 1, and then look up 2^8 to 2^7.
+   Result: T = 794; m = 320; n = 256.
+   
+Plotting the graph with vertical axis T/m and horizontal axis log2(n), the result trendline
+is y = 0.0054688x + 2.4394531, where y = T/m and x = log2(n). So the approximate c is
+0.0054688.
